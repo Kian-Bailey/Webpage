@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <title>Greetings</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            transition: background-color 1s, color 1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        #message-container {
+            opacity: 1;
+            transition: opacity 1s;
+            max-width: 90%;
+            margin:auto;
+        }
+        #message {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        #bandImage {
+            margin-top: 20px;
+            width: 400px;
+            height: auto;
+            opacity: 0; /* Initially hidden */
+            display: none;
+            transition: opacity 1s;
+            max-width: 100%;
+        }
+        #guessForm {
+            margin-top: 20px;
+            display: block;
+        }
+        #guessInput {
+            width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        #submitButton {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #submitButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="message-container">
+        <div id="message">
+        <h1>
+            Hi Mooha!
+        </h1>
+        <h2>
+            Guess who you are seeing!
+        </h2>
+    </div>
+        <form id="guessForm">
+            <input type="text" id="guessInput" name="guess" required>
+            <br>
+            <button type="button" id="submitButton" onclick="checkGuess()">Submit</button>
+        </form>
+        <img id="bandImage" src="https://data.mothership.tools/mothershiptools-ukprod/wp-content/uploads/2021/09/EYK_JFTT_EP_LoRes.jpg" alt="Band Image">
+    </div>
+    
+    <script>
+        // Function to check the user's guess
+        function checkGuess() {
+            var userGuess = document.getElementById('guessInput').value.toLowerCase();
+            var correctAnswer = "everyone you know";
+            var messageContainer = document.getElementById('message-container');
+            var bandImage = document.getElementById('bandImage');
+            var guessForm = document.getElementById('guessForm');
+            
+            if (userGuess === correctAnswer) {
+                messageContainer.style.opacity = 0;
+
+                setTimeout(function () {
+                    document.getElementById('message').innerHTML = "Correct! You're seeing Everyone You Know at Gorilla!";
+                    bandImage.style.opacity = 1;
+                    bandImage.style.display="inline";
+                    messageContainer.style.opacity = 1;
+                    guessForm.style.display = 'none'; // Hide the guess form
+                }, 1000); // 1000 milliseconds (1 second) for the fade out
+            } else {
+                alert("Wrong guess! Try again.");
+            }
+        }
+
+        // Call the function when the page is loaded
+        window.onload = function () {
+            document.getElementById('guessForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent form submission (we handle it with checkGuess)
+                checkGuess();
+            });
+        };
+    </script>
+</body>
+</html>
